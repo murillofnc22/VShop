@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VShop.ProductApi", "VShop.ProductApi\VShop.ProductApi.csproj", "{7CFA4198-DFB4-46F2-8383-86BE44DD8755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VShop.Web", "VShop.Web\VShop.Web.csproj", "{D08DF723-23AD-43FD-BED4-09A3158DB489}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CFA4198-DFB4-46F2-8383-86BE44DD8755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CFA4198-DFB4-46F2-8383-86BE44DD8755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CFA4198-DFB4-46F2-8383-86BE44DD8755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CFA4198-DFB4-46F2-8383-86BE44DD8755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D08DF723-23AD-43FD-BED4-09A3158DB489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D08DF723-23AD-43FD-BED4-09A3158DB489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D08DF723-23AD-43FD-BED4-09A3158DB489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D08DF723-23AD-43FD-BED4-09A3158DB489}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18A8171B-441C-4BBE-AD12-DC139BF0290B}
+	EndGlobalSection
+EndGlobal
