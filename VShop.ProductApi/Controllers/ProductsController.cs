@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using VShop.ProductApi.DTOs;
 using VShop.ProductApi.Services;
 
@@ -10,7 +9,6 @@ namespace VShop.ProductApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
-
         public ProductsController(IProductService productService)
         {
             _productService = productService;
@@ -18,54 +16,61 @@ namespace VShop.ProductApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
         {
-            var productsDto = await _productService.GetProducts();
-            if (productsDto is null)
+            var produtosDto = await _productService.GetProducts();
+            if (produtosDto == null)
+            {
                 return NotFound("Products not found");
-
-            return Ok(productsDto);
+            }
+            return Ok(produtosDto);
         }
-        [HttpGet("{id:int}", Name = "GetProduct")]
+
+        [HttpGet("{id}", Name = "GetProduct")]
         public async Task<ActionResult<ProductDTO>> Get(int id)
         {
-            var productDto = await _productService.GetProductById(id);
-            if (productDto == null)
+            var produtoDto = await _productService.GetProductById(id);
+            if (produtoDto == null)
+            {
                 return NotFound("Product not found");
-
-            return Ok(productDto);
+            }
+            return Ok(produtoDto);
         }
+
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] ProductDTO productDto)
+        public async Task<ActionResult> Post([FromBody] ProductDTO produtoDto)
         {
-            if (productDto == null)
-                return BadRequest("Invalid Data");
+            if (produtoDto == null)
+                return BadRequest("Data Invalid");
 
-            await _productService.AddProduct(productDto);
+            await _productService.AddProduct(produtoDto);
 
-            return new CreatedAtRouteResult("GetProduct", new { id = productDto.Id }, productDto);
+            return new CreatedAtRouteResult("GetProduct",
+                new { id = produtoDto.Id }, produtoDto);
         }
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, [FromBody] ProductDTO productDto)
+
+        [HttpPut()]
+        public async Task<ActionResult> Put([FromBody] ProductDTO produtoDto)
         {
-            if (id != productDto.Id)
-                return BadRequest();
+            if (produtoDto == null)
+                return BadRequest("Data invalid");
 
-            if (productDto is null)
-                return BadRequest();
+            await _productService.UpdateProduct(produtoDto);
 
-            await _productService.UpdateProduct(productDto);
-
-            return Ok(productDto);
+            return Ok(produtoDto);
         }
-        [HttpDelete("{id:int}")]
+
+        [HttpDelete("{id}")]
         public async Task<ActionResult<ProductDTO>> Delete(int id)
         {
-            var productDto = await _productService.GetProductById(id);
-            if (productDto == null)
+            var produtoDto = await _productService.GetProductById(id);
+
+            if (produtoDto == null)
+            {
                 return NotFound("Product not found");
+            }
 
             await _productService.RemoveProduct(id);
 
-            return Ok(productDto);
+            return Ok(produtoDto);
         }
     }
 }

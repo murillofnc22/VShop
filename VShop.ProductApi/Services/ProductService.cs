@@ -7,13 +7,15 @@ namespace VShop.ProductApi.Services;
 
 public class ProductService : IProductService
 {
-    private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
-    public ProductService(IProductRepository productRepository, IMapper mapper)
+    private IProductRepository _productRepository;
+
+    public ProductService(IMapper mapper, IProductRepository productRepository)
     {
-        _productRepository = productRepository;
         _mapper = mapper;
+        _productRepository = productRepository;
     }
+
     public async Task<IEnumerable<ProductDTO>> GetProducts()
     {
         var productsEntity = await _productRepository.GetAll();
@@ -21,23 +23,30 @@ public class ProductService : IProductService
     }
     public async Task<ProductDTO> GetProductById(int id)
     {
-        var productsEntity = await _productRepository.GetById(id);
-        return _mapper.Map<ProductDTO>(productsEntity);
+        var productEntity = await _productRepository.GetById(id);
+        return _mapper.Map<ProductDTO>(productEntity);
     }
     public async Task AddProduct(ProductDTO productDto)
     {
-        var productEntity = _mapper.Map<Product>(productDto);
-        await _productRepository.Create(productEntity);
-        productDto.Id = productEntity.Id;
+        try
+        {
+            var productEntity = _mapper.Map<Product>(productDto);
+            await _productRepository.Create(productEntity);
+            productDto.Id = productEntity.Id;
+        }
+        catch (Exception e)
+        {
+            
+        }        
     }
     public async Task UpdateProduct(ProductDTO productDto)
     {
-        var productEntity = _mapper.Map<Product>(productDto);
-        await _productRepository.Update(productEntity);
+        var categoryEntity = _mapper.Map<Product>(productDto);
+        await _productRepository.Update(categoryEntity);
     }
     public async Task RemoveProduct(int id)
     {
-        var productEntity = _productRepository.GetById(id).Result;
+        var productEntity = await _productRepository.GetById(id);
         await _productRepository.Delete(productEntity.Id);
     }
 }
